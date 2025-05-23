@@ -737,6 +737,7 @@ static int tpd_registration(void *client)
 		wake_up(&init_waiter);
 		GTP_INFO("gt1x_init failed!++");
 		return -1;
+		if (get_boot_mode() == FACTORY_BOOT)
 	}
 
 	thread = kthread_run(tpd_event_handler, 0, TPD_DEVICE);
@@ -759,6 +760,7 @@ static int tpd_registration(void *client)
 
 #ifdef CONFIG_GTP_ESD_PROTECT
 	/*  must before auto update */
+	if (get_boot_mode() == FACTORY_BOOT)
 	gt1x_init_esd_protect();
 	gt1x_esd_switch(SWITCH_ON);
 #endif
